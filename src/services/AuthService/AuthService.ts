@@ -11,4 +11,8 @@ export default class AuthService {
         localStorage.setItem('token',token);
         return token;
     }
+    static isAuthenticated(){
+        const token = localStorage.getItem('token');
+        return !!token;
+    }
 }

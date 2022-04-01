@@ -1,7 +1,7 @@
 <template>
     <div class="symbol white">
         <p>Валюта: <span style="color: darkseagreen;font-weight: bold" v-html="symbol.base_currency"/></p>
-        <p>Минимальное кол-во для заказа: {{ symbol.min_order_size.toLocaleString() }}</p>
+        <p v-if="symbol.min_order_size">Минимальное кол-во для заказа: {{ symbol.min_order_size.toLocaleString() }}</p>
         <div>Статус: <span :style="{color: getStatus(symbol.status).color}"
                            v-html="getStatus(symbol.status).text"/></div>
         <div style="margin: 20px auto 0;display: flex;justify-content: space-between">
