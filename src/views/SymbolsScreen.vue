@@ -1,13 +1,15 @@
 <template>
     <div class="about secondary">
-        <h1>Страница офферов</h1>
-        <v-btn @click="loadSymbols" style="margin-right: 10px">
+        <v-btn :loading="loading" color="primary" class="my-3" @click="loadSymbols">
             Загрузить
+            <v-icon v-html="'mdi-progress-download'" class="ml-2"/>
         </v-btn>
         <div style="margin-top: 25px">
-            <div v-if="symbols" class="symbols-wrapper">
-                <SymbolCard :symbol="symbol" v-for="(symbol,index) in symbols" :key="index"/>
-            </div>
+            <v-fade-transition mode="out-in" leave-absolute>
+                <div v-if="symbols && !loading" class="symbols-wrapper">
+                    <SymbolCard :symbol="symbol" v-for="(symbol,index) in symbols" :key="index"/>
+                </div>
+            </v-fade-transition>
         </div>
     </div>
 </template>
@@ -24,8 +26,14 @@ import Component from "vue-class-component";
     }
 })
 export default class SymbolsScreen extends Vue {
-    loadSymbols = () => this.$store.dispatch('loadSymbols');
-    loadSelectList = () => this.$store.dispatch('getSymbolsList');
+    async loadSymbols(){
+        this.loading = true;
+        await this.$store.dispatch('loadSymbols')
+        this.loading = false;
+    }
+    async loadSelectList(){
+        await this.$store.dispatch('getSymbolsList');
+    }
 
     get symbols(): Currency[] {
         return this.$store.state.blockchainModule.symbols
@@ -33,6 +41,9 @@ export default class SymbolsScreen extends Vue {
 
     get loading() {
         return this.$store.state.blockchainModule.loading
+    }
+    set loading(v){
+        this.$store.state.blockchainModule.loading = v
     }
 
     mounted() {

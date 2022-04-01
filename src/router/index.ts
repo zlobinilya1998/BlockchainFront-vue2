@@ -25,7 +25,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from,next) => {
   const authorized = AuthService.isAuthenticated();
-  
+
   if (!authorized && to.path !== '/login') next('/login')
   else next();
 })
