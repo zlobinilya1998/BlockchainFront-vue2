@@ -1,0 +1,350 @@
+@font-face {
+  font-family: 'custom-icons';
+  src:
+    url('fonts/custom-icons.ttf?wv1729') format('truetype'),
+    url('fonts/custom-icons.woff?wv1729') format('woff'),
+    url('fonts/custom-icons.svg?wv1729#custom-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.ci {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'custom-icons' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ci-warning:before {
+  content: "\e900";
+}
+.ci-cloud:before {
+  content: "\e901";
+}
+.ci-locked:before {
+  content: "\e902";
+}
+.ci-inbox:before {
+  content: "\e903";
+}
+.ci-comment:before {
+  content: "\e904";
+}
+.ci-mic:before {
+  content: "\e905";
+}
+.ci-envelope:before {
+  content: "\e906";
+}
+.ci-briefcase:before {
+  content: "\e907";
+}
+.ci-cart:before {
+  content: "\e908";
+}
+.ci-contrast:before {
+  content: "\e909";
+}
+.ci-clock:before {
+  content: "\e90a";
+}
+.ci-user:before {
+  content: "\e90b";
+}
+.ci-cog:before {
+  content: "\e90c";
+}
+.ci-music:before {
+  content: "\e90d";
+}
+.ci-twitter:before {
+  content: "\e90e";
+}
+.ci-pencil:before {
+  content: "\e90f";
+}
+.ci-frame:before {
+  content: "\e910";
+}
+.ci-switch:before {
+  content: "\e911";
+}
+.ci-star:before {
+  content: "\e912";
+}
+.ci-key:before {
+  content: "\e913";
+}
+.ci-chart:before {
+  content: "\e914";
+}
+.ci-apple:before {
+  content: "\e915";
+}
+.ci-file:before {
+  content: "\e916";
+}
+.ci-plus:before {
+  content: "\e917";
+}
+.ci-minus:before {
+  content: "\e918";
+}
+.ci-picture:before {
+  content: "\e919";
+}
+.ci-folder:before {
+  content: "\e91a";
+}
+.ci-camera:before {
+  content: "\e91b";
+}
+.ci-search:before {
+  content: "\e91c";
+}
+.ci-dribbble:before {
+  content: "\e91d";
+}
+.ci-forrst:before {
+  content: "\e91e";
+}
+.ci-feed:before {
+  content: "\e91f";
+}
+.ci-blocked:before {
+  content: "\e920";
+}
+.ci-target:before {
+  content: "\e921";
+}
+.ci-play:before {
+  content: "\e922";
+}
+.ci-pause:before {
+  content: "\e923";
+}
+.ci-bug:before {
+  content: "\e924";
+}
+.ci-console:before {
+  content: "\e925";
+}
+.ci-film:before {
+  content: "\e926";
+}
+.ci-type:before {
+  content: "\e927";
+}
+.ci-home:before {
+  content: "\e928";
+}
+.ci-earth:before {
+  content: "\e929";
+}
+.ci-location:before {
+  content: "\e92a";
+}
+.ci-info:before {
+  content: "\e92b";
+}
+.ci-eye:before {
+  content: "\e92c";
+}
+.ci-heart:before {
+  content: "\e92d";
+}
+.ci-bookmark:before {
+  content: "\e92e";
+}
+.ci-wrench:before {
+  content: "\e92f";
+}
+.ci-calendar:before {
+  content: "\e930";
+}
+.ci-window:before {
+  content: "\e931";
+}
+.ci-monitor:before {
+  content: "\e932";
+}
+.ci-mobile:before {
+  content: "\e933";
+}
+.ci-droplet:before {
+  content: "\e934";
+}
+.ci-mouse:before {
+  content: "\e935";
+}
+.ci-refresh:before {
+  content: "\e936";
+}
+.ci-location1:before {
+  content: "\e937";
+}
+.ci-tag:before {
+  content: "\e938";
+}
+.ci-phone:before {
+  content: "\e939";
+}
+.ci-star1:before {
+  content: "\e93a";
+}
+.ci-pointer:before {
+  content: "\e93b";
+}
+.ci-thumbsup:before {
+  content: "\e93c";
+}
+.ci-thumbsdown:before {
+  content: "\e93d";
+}
+.ci-headphones:before {
+  content: "\e93e";
+}
+.ci-move:before {
+  content: "\e93f";
+}
+.ci-checkmark:before {
+  content: "\e940";
+}
+.ci-cancel:before {
+  content: "\e941";
+}
+.ci-skype:before {
+  content: "\e942";
+}
+.ci-gift:before {
+  content: "\e943";
+}
+.ci-cone:before {
+  content: "\e944";
+}
+.ci-alarm:before {
+  content: "\e945";
+}
+.ci-coffee:before {
+  content: "\e946";
+}
+.ci-basket:before {
+  content: "\e947";
+}
+.ci-flag:before {
+  content: "\e948";
+}
+.ci-ipod:before {
+  content: "\e949";
+}
+.ci-trashcan:before {
+  content: "\e94a";
+}
+.ci-bolt:before {
+  content: "\e94b";
+}
+.ci-ampersand:before {
+  content: "\e94c";
+}
+.ci-compass:before {
+  content: "\e94d";
+}
+.ci-list:before {
+  content: "\e94e";
+}
+.ci-grid:before {
+  content: "\e94f";
+}
+.ci-volume:before {
+  content: "\e950";
+}
+.ci-volume1:before {
+  content: "\e951";
+}
+.ci-stats:before {
+  content: "\e952";
+}
+.ci-target1:before {
+  content: "\e953";
+}
+.ci-forward:before {
+  content: "\e954";
+}
+.ci-paperclip:before {
+  content: "\e955";
+}
+.ci-keyboard:before {
+  content: "\e956";
+}
+.ci-crop:before {
+  content: "\e957";
+}
+.ci-floppy:before {
+  content: "\e958";
+}
+.ci-filter:before {
+  content: "\e959";
+}
+.ci-trophy:before {
+  content: "\e95a";
+}
+.ci-diary:before {
+  content: "\e95b";
+}
+.ci-addressbook:before {
+  content: "\e95c";
+}
+.ci-stop:before {
+  content: "\e95d";
+}
+.ci-smiley:before {
+  content: "\e95e";
+}
+.ci-shit:before {
+  content: "\e95f";
+}
+.ci-bookmark1:before {
+  content: "\e960";
+}
+.ci-camera1:before {
+  content: "\e961";
+}
+.ci-lamp:before {
+  content: "\e962";
+}
+.ci-disk:before {
+  content: "\e963";
+}
+.ci-button:before {
+  content: "\e964";
+}
+.ci-database:before {
+  content: "\e965";
+}
+.ci-creditcard:before {
+  content: "\e966";
+}
+.ci-atom:before {
+  content: "\e967";
+}
+.ci-winsows:before {
+  content: "\e968";
+}
+.ci-target2:before {
+  content: "\e969";
+}
+.ci-battery:before {
+  content: "\e96a";
+}
+.ci-code:before {
+  content: "\e96b";
+}
