@@ -143,7 +143,7 @@ enum DialogStates {
 export default class Header extends Vue {
     state: DialogStates = DialogStates.login;
     dialogStates = DialogStates;
-    showDialog = false
+    showDialog = true
 
 
     loginForm: LoginModel = new LoginModel()
