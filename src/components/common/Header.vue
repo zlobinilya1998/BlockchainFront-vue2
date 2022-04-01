@@ -31,7 +31,7 @@
             <v-icon>mdi-login-variant</v-icon>
         </v-btn>
 
-        <v-dialog v-model="showDialog" overlay-color="secondary" max-width="450" persistent>
+        <v-dialog v-model="showDialog" overlay-color="secondary" max-width="450">
             <v-card class="pa-5">
                 <v-fade-transition mode="out-in" group leave-absolute>
                     <v-form key="1" v-if="state === dialogStates.login">
@@ -103,6 +103,13 @@
                     />
                 </v-card-actions>
             </v-card>
+
+            <v-snackbar
+                color="primary"
+                v-model="snackbar"
+            >
+                <div v-html="snackbarMessage" class="text-center"/>
+            </v-snackbar>
         </v-dialog>
     </v-app-bar>
 </template>
@@ -110,7 +117,8 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import Vue from "vue";
-import {FormState, LoginModel, RegisterModel} from "@/models/Entities/User";
+import {LoginModel, RegisterModel} from "@/models/Entities/User";
+import {AxiosError} from "axios";
 
 const headerLinks: HeaderBtn[] = [
     {
@@ -144,8 +152,8 @@ export default class Header extends Vue {
     state: DialogStates = DialogStates.login;
     dialogStates = DialogStates;
     showDialog = true
-
-
+    snackbar = false;
+    snackbarMessage = '';
     loginForm: LoginModel = new LoginModel()
     registerForm: RegisterModel = new RegisterModel()
     loading = false;
@@ -154,7 +162,7 @@ export default class Header extends Vue {
         try {
             await this.$store.dispatch('login', this.loginForm);
             this.showDialog = false;
-            await this.$router.push('/');
+            await this.$router.push('/currency');
         } finally {
             this.loading = false
         }
@@ -165,7 +173,17 @@ export default class Header extends Vue {
             await this.$store.dispatch('register', this.registerForm);
             this.showDialog = false;
             await this.$router.push('/');
-        } finally {
+        } catch (e) {
+            const err = e as AxiosError;
+            const message = err.response?.data.message
+            if (message){
+                this.snackbar = true;
+                this.snackbarMessage = message;
+            }
+
+        }
+
+        finally {
             this.loading = false;
         }
     }

@@ -1,5 +1,5 @@
 <template>
-    <div class="symbol" style="background-color: #F0F0F0">
+    <div class="symbol white">
         <p>Валюта: <span style="color: darkseagreen;font-weight: bold" v-html="symbol.base_currency"/></p>
         <p>Минимальное кол-во для заказа: {{ symbol.min_order_size.toLocaleString() }}</p>
         <div>Статус: <span :style="{color: getStatus(symbol.status).color}"
