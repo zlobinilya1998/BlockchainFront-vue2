@@ -1,36 +1,45 @@
 <template>
-    <div class="about">
+    <div class="about secondary">
         <h1>Страница офферов</h1>
-        <c-btn @click="loadSymbols" style="margin-right: 10px">
+        <v-btn @click="loadSymbols" style="margin-right: 10px">
             Загрузить
-            <c-icon v-html="'ci-refresh'"/>
-        </c-btn>
+        </v-btn>
         <div style="margin-top: 25px">
-            <c-loader v-if="loading"/>
-            <div v-else-if="symbols" class="symbols-wrapper">
+            <div v-if="symbols" class="symbols-wrapper">
                 <SymbolCard :symbol="symbol" v-for="(symbol,index) in symbols" :key="index"/>
             </div>
         </div>
     </div>
 </template>
 
-<script setup lang="ts">
-import {computed, onMounted} from "vue";
-import {useStore} from "vuex";
+<script lang="ts">
 import {Currency} from "@/models/Entities/Currency";
 import SymbolCard from "@/components/symbols/SymbolCard.vue";
+import Vue from "vue";
+import Component from "vue-class-component";
 
-const store = useStore();
-const loadSymbols = () => store.dispatch('loadSymbols');
-const loadSelectList = () => store.dispatch('getSymbolsList');
-
-const symbols = computed<Currency[]>(() => store.state.blockchainModule.symbols);
-const loading = computed(() => store.state.blockchainModule.loading);
-
-onMounted(async () => {
-    await loadSymbols();
-    await loadSelectList();
+@Component({
+    components: {
+        SymbolCard,
+    }
 })
+export default class SymbolsScreen extends Vue {
+    loadSymbols = () => this.$store.dispatch('loadSymbols');
+    loadSelectList = () => this.$store.dispatch('getSymbolsList');
+
+    get symbols(): Currency[] {
+        return this.$store.state.blockchainModule.symbols
+    }
+
+    get loading() {
+        return this.$store.state.blockchainModule.loading
+    }
+
+    mounted() {
+        this.loadSymbols();
+        this.loadSelectList();
+    }
+}
 </script>
 
 

@@ -1,10 +1,10 @@
 import BlockchainService from "@/services/BlockchainService/BlockchainService";
 import { ActionContext } from "vuex";
-import { RootState } from "@/store/store";
+import { RootState } from "@/store";
 import {Currency} from "@/models/Entities/Currency";
 
 class BlockChainState {
-    loading: boolean = false;
+    loading = false;
     symbols: Currency[] = [];
     selectList: [] = [];
 }

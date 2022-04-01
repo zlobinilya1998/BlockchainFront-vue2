@@ -1,4 +1,4 @@
-import $api from "@/services/Infrastructure/Api";
+import $api from "@/services/Api";
 
 export default class BlockchainService {
     static baseUrl = $api.defaults.baseURL + '/bc';

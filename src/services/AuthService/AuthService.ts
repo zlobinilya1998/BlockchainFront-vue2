@@ -1,4 +1,4 @@
-import $api from "@/services/Infrastructure/Api";
+import $api from "@/services/Api";
 import {User} from "@/models/Entities/User";
 
 export default class AuthService {

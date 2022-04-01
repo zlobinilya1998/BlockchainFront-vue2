@@ -6,13 +6,13 @@ export class User {
 
 export class LoginModel {
     email = "qwertin1998@gmail.com"
-    password = '12345'
+    password = '1234'
 }
 
 export class RegisterModel {
     login = "Iliya"
     password = '1234'
-    email = "qwertin199@gmail.com"
+    email = "qwertin1998@gmail.com"
 }
 
 

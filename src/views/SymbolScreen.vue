@@ -1,29 +1,31 @@
 <template>
     <div style="margin-top: 25px">
-        <c-loader v-if="loading"/>
-        <SymbolCard v-else-if="symbol" class="symbol-info" :symbol="symbol" style="max-width: 450px"/>
-        <div v-else>Информация по символу не найдена</div>
+        <div>Symbol Screen</div>
+<!--        <c-loader v-if="loading"/>-->
+<!--        <SymbolCard v-else-if="symbol" class="symbol-info" :symbol="symbol" style="max-width: 450px"/>-->
+<!--        <div v-else>Информация по символу не найдена</div>-->
     </div>
 </template>
 
-<script setup lang="ts">
-import {onMounted, ref} from "vue";
-import {useStore} from "vuex";
-import {useRoute} from "vue-router";
+<script lang="ts">
 import {Currency} from "@/models/Entities/Currency";
 import SymbolCard from "@/components/symbols/SymbolCard.vue";
+import Component from "vue-class-component";
+import Vue from "vue";
 
-const store = useStore();
-const route = useRoute();
-
-const loading = ref(false);
-const symbol = ref<Currency | null>(null);
-const loadSymbolInfo = async () => {
-    loading.value = true;
-    symbol.value  = await store.dispatch('getSymbolInfo', route.params.symbol);
-    loading.value = false;
+@Component
+export default class SymbolScreen extends Vue {
+    loading = false;
+    symbol: Currency | null = null;
+    loadSymbolInfo = async () => {
+        this.loading = true;
+        this.symbol = await this.$store.dispatch('getSymbolInfo', this.$route.params.symbol);
+        this.loading = false;
+    }
+    mounted(){
+        this.loadSymbolInfo();
+    }
 }
-onMounted(loadSymbolInfo)
 </script>
 
 <style scoped>

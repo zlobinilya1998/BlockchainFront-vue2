@@ -1,13 +1,13 @@
 import { ActionContext } from "vuex";
-import { RootState } from "@/store/store";
+import { RootState } from "@/store";
 import {RegisterModel, User} from "@/models/Entities/User";
 import UserSerivce from '@/services/UserService/UserService'
 import AuthService from "@/services/AuthService/AuthService";
 
 class UserState {
-    loading: boolean = false;
+    loading = false;
     user: User | null = null;
-    isLoggedIn: boolean = false;
+    isLoggedIn = false;
 }
 
 const userModule = {
