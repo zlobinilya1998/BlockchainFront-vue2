@@ -67,6 +67,7 @@
                     <v-btn
                         color="green darken-1"
                         text
+                        :loading="loading"
                         @click="register"
                         v-html="'Зарегистрироваться'"
                     />
@@ -80,7 +81,7 @@
 </template>
 
 <script lang="ts">
-import {FormState, LoginModel, RegisterModel} from "@/models/Entities/User";
+import {LoginModel, RegisterModel} from "@/models/Entities/User";
 import Vue from "vue";
 import Component from "vue-class-component";
 import {AxiosError} from "axios";
@@ -100,7 +101,9 @@ export default class LoginScreen extends Vue {
         try {
             await this.$store.dispatch('login', this.loginForm);
             this.showDialog = false;
-            await this.$router.push('/currency');
+            await this.$router.push({
+                name: 'currency',
+            });
         } finally {
             this.loading = false
         }
@@ -110,7 +113,7 @@ export default class LoginScreen extends Vue {
         try {
             await this.$store.dispatch('register', this.registerForm);
             this.showDialog = false;
-            await this.$router.push('/');
+            await this.$router.push({name: 'currency'});
         } catch (e) {
             const err = e as AxiosError;
             const message = err.response?.data.message
