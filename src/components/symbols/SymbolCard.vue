@@ -4,8 +4,13 @@
         <p v-if="symbol.min_order_size">Минимальное кол-во для заказа: {{ symbol.min_order_size.toLocaleString() }}</p>
         <div>Статус: <span :style="{color: getStatus(symbol.status).color}"
                            v-html="getStatus(symbol.status).text"/></div>
+        <v-expand-transition>
+            <div v-if="expanded">
+                <div>Изменение за последние 24 часа: <span :style="{color: dynamicColor}" v-html="`${Math.floor(symbol.imbalance)}%`"/></div>
+            </div>
+        </v-expand-transition>
         <div style="margin: 20px auto 0;display: flex;justify-content: space-between">
-            <v-btn @click="openSymbolInfo(symbol)">
+            <v-btn @click="openSymbolInfo">
                 Подробнее
                 <v-icon v-html="'ci-info'"/>
             </v-btn>
@@ -26,17 +31,20 @@ import Component from "vue-class-component";
 @Component
 export default class SymbolCard extends Vue {
     @Prop() symbol: Currency;
-    symbolStatus  = Status;
+    symbolStatus = Status;
+    expanded = false;
 
-    openSymbolInfo = (symbol: Currency) => {
-        this.$router.push({
-            name: 'symbolInfo',
-            params: {
-                symbol: `${symbol.base_currency}-${symbol.counter_currency}`
-            }
-        })
+    openSymbolInfo(){
+        this.expanded = !this.expanded;
     }
     getStatus = (status: Status) => getStatus(status);
+
+    get dynamicColor(){
+        const imbalance = this.symbol.imbalance
+        if (imbalance > 0) return 'green';
+        else if (imbalance == 0) return '';
+        else return 'red';
+    }
 }
 
 

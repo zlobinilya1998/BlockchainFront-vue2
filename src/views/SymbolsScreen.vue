@@ -4,6 +4,7 @@
             Загрузить
             <v-icon v-html="'mdi-progress-download'" class="ml-2"/>
         </v-btn>
+
         <div style="margin-top: 25px">
             <v-fade-transition mode="out-in" leave-absolute>
                 <div v-if="symbols && !loading" class="symbols-wrapper">
@@ -15,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import {Currency} from "@/models/Entities/Currency";
+import {Currency, Status} from "@/models/Entities/Currency";
 import SymbolCard from "@/components/symbols/SymbolCard.vue";
 import Vue from "vue";
 import Component from "vue-class-component";
@@ -26,12 +27,16 @@ import Component from "vue-class-component";
     }
 })
 export default class SymbolsScreen extends Vue {
-    async loadSymbols(){
+    statuses = Status
+    switchModel = false;
+
+    async loadSymbols() {
         this.loading = true;
         await this.$store.dispatch('loadSymbols')
         this.loading = false;
     }
-    async loadSelectList(){
+
+    async loadSelectList() {
         await this.$store.dispatch('getSymbolsList');
     }
 
@@ -42,7 +47,8 @@ export default class SymbolsScreen extends Vue {
     get loading() {
         return this.$store.state.blockchainModule.loading
     }
-    set loading(v){
+
+    set loading(v) {
         this.$store.state.blockchainModule.loading = v
     }
 
