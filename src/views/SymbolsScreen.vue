@@ -50,8 +50,8 @@ export default class SymbolsScreen extends Vue {
         await this.$store.dispatch('getSymbolsList');
     }
     initQueryString(){
-        const page = +this.$route.query.page
-        if (page > 0 && page <= this.maxLength) this.page = page
+        const page = +this.$route.query.page;
+        if (page > 0) this.page = page
     }
 
     get maxLength(){

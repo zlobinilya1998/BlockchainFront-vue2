@@ -42,11 +42,6 @@ export default class Header extends Vue {
             text: 'Тренды',
             pathName: '/trends',
         },
-        {
-            text: 'Страница иконок',
-            pathName: '/admin/icons',
-            icon: 'ci-cog',
-        },
     ]
     get isLoggedIn(){
         return this.$store.state.userModule.isLoggedIn;
