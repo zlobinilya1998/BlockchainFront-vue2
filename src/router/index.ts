@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import AuthService from "@/services/AuthService/AuthService";
-
+import store from "@/store"
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
@@ -17,7 +17,10 @@ const routes: Array<RouteConfig> = [
   {
     path: '/currency',
     name: 'currency',
-    component: () => import('@/views/SymbolsScreen.vue')
+    component: () => import('@/views/SymbolsScreen.vue'),
+    meta: {
+      requiresAuth: true,
+    }
   }
 ]
 
@@ -27,11 +30,13 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from,next) => {
-  const authorized = AuthService.isAuthenticated();
 
-  if (!authorized && to.path !== '/login') next('/login')
-  else next();
+router.beforeEach((to, from,next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    const authorized = AuthService.isAuthenticated();
+    if (authorized) return next();
+    return next('/login')
+  } else return next();
 })
 
 

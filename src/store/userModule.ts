@@ -12,6 +12,12 @@ class UserState {
 
 const userModule = {
     state: new UserState(),
+    namespaced: true,
+    mutations: {
+        setAuthorized(state: UserState, payload: boolean){
+            state.isLoggedIn = payload;
+        }
+    },
     actions: {
         async login(me: ActionContext<UserState, RootState>, user: User){
             me.state.loading = true;
@@ -24,6 +30,10 @@ const userModule = {
             const token = await UserSerivce.register(user);
             me.state.loading = false;
             me.state.isLoggedIn = true;
+        },
+        async logout(me: ActionContext<UserState, RootState>){
+            AuthService.logout();
+            me.state.isLoggedIn = false;
         },
     }
 }

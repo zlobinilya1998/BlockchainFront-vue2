@@ -15,12 +15,23 @@
 import Vue from 'vue';
 import Header from "@/components/common/Header.vue";
 import Component from "vue-class-component";
+import AuthService from "@/services/AuthService/AuthService";
 
 
 @Component({
     components: {Header}
 })
 export default class App extends Vue {
+
+    checkAuth(){
+        const isAuthenticated = AuthService.isAuthenticated()
+        if (isAuthenticated){
+            this.$store.commit('userModule/setAuthorized',true);
+        }
+    }
+    mounted(){
+        this.checkAuth();
+    }
 
 }
 </script>

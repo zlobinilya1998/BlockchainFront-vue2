@@ -26,19 +26,20 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn color="secondary" @click="$router.push('/login')">
+        <v-btn v-if="isLoggedIn" color="secondary" @click="logout">
+            <span class="mr-2">Выход</span>
+            <v-icon>mdi-login-variant</v-icon>
+        </v-btn>
+        <v-btn v-else color="secondary" @click="$router.push('/login')">
             <span class="mr-2">Вход</span>
             <v-icon>mdi-login-variant</v-icon>
         </v-btn>
-
     </v-app-bar>
 </template>
 
 <script lang="ts">
 import Component from "vue-class-component";
 import Vue from "vue";
-import {LoginModel, RegisterModel} from "@/models/Entities/User";
-import {AxiosError} from "axios";
 
 const headerLinks: HeaderBtn[] = [
     {
@@ -66,6 +67,13 @@ interface HeaderBtn {
 
 @Component
 export default class Header extends Vue {
+    get isLoggedIn(){
+        return this.$store.state.userModule.isLoggedIn;
+    }
+    logout(){
+        this.$store.dispatch('userModule/logout');
+        this.$router.push('/login')
+    }
 }
 </script>
 

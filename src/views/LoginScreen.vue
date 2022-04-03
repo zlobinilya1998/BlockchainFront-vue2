@@ -2,6 +2,7 @@
     <div>
         <v-dialog v-model="showDialog" overlay-color="secondary" max-width="450" persistent>
             <v-card class="pa-5">
+                <div class="text-center text-h5">{{state === dialogStates.registration ? 'Регистрация' : 'Вход'}}</div>
                 <v-fade-transition mode="out-in" group leave-absolute>
                     <v-form key="1" v-if="state === dialogStates.login">
                         <v-text-field
@@ -41,16 +42,14 @@
                 </v-fade-transition>
                 <v-card-actions v-if="state === dialogStates.login" class="pa-0 mt-4">
                     <v-btn
-                        color="green darken-1"
-                        text
+                        color="secondary"
                         @click="state = dialogStates.registration"
                         v-html="'Регистрация'"
                     />
                     <v-spacer></v-spacer>
 
                     <v-btn
-                        color="green darken-1"
-                        text
+                        color="secondary"
                         @click="login"
                         v-html="'Вход'"
                     />
@@ -58,15 +57,14 @@
                 </v-card-actions>
                 <v-card-actions v-else-if="state === dialogStates.registration" class="pa-0 mt-4">
                     <v-btn
-                        color="green darken-1"
-                        text
+                        color="secondary"
+                        :loading="loading"
                         @click="setOnLogin"
                         v-html="'Назад'"
                     />
                     <v-spacer></v-spacer>
                     <v-btn
-                        color="green darken-1"
-                        text
+                        color="secondary"
                         :loading="loading"
                         @click="register"
                         v-html="'Зарегистрироваться'"
@@ -99,11 +97,18 @@ export default class LoginScreen extends Vue {
     async login() {
         this.loading = true
         try {
-            await this.$store.dispatch('login', this.loginForm);
+            await this.$store.dispatch('userModule/login', this.loginForm);
             this.showDialog = false;
             await this.$router.push({
                 name: 'currency',
             });
+        } catch (e) {
+            const err = e as AxiosError;
+            const message = err.response?.data.message
+            if (message){
+                this.snackbar = true;
+                this.snackbarMessage = message;
+            }
         } finally {
             this.loading = false
         }
@@ -111,7 +116,7 @@ export default class LoginScreen extends Vue {
     async register(){
         this.loading = true;
         try {
-            await this.$store.dispatch('register', this.registerForm);
+            await this.$store.dispatch('userModule/register', this.registerForm);
             this.showDialog = false;
             await this.$router.push({name: 'currency'});
         } catch (e) {
@@ -121,9 +126,7 @@ export default class LoginScreen extends Vue {
                 this.snackbar = true;
                 this.snackbarMessage = message;
             }
-
         }
-
         finally {
             this.loading = false;
         }
