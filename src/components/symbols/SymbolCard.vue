@@ -10,13 +10,9 @@
             </div>
         </v-expand-transition>
         <div style="margin: 20px auto 0;display: flex;justify-content: space-between">
-            <v-btn @click="openSymbolInfo">
-                Подробнее
+            <v-btn @click="openSymbolInfo" color="secondary">
+                {{ expanded ? 'Свернуть':'Подробнее'}}
                 <v-icon v-html="'ci-info'"/>
-            </v-btn>
-            <v-btn v-if="symbol.status === symbolStatus.open" style="padding: 10px;cursor: pointer">
-                Приобрести
-                <i class="ci ci-tag"/>
             </v-btn>
         </div>
     </div>

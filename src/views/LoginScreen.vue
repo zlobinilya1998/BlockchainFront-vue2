@@ -50,6 +50,7 @@
 
                     <v-btn
                         color="secondary"
+                        :loading="loading"
                         @click="login"
                         v-html="'Вход'"
                     />
@@ -58,7 +59,6 @@
                 <v-card-actions v-else-if="state === dialogStates.registration" class="pa-0 mt-4">
                     <v-btn
                         color="secondary"
-                        :loading="loading"
                         @click="setOnLogin"
                         v-html="'Назад'"
                     />

@@ -8,9 +8,11 @@
         <div style="margin-top: 25px">
             <v-fade-transition mode="out-in" leave-absolute>
                 <div v-if="paginatedSymbols && !loading">
-                    <div class="symbols-wrapper">
-                        <SymbolCard :symbol="symbol" v-for="(symbol,index) in paginatedSymbols" :key="index"/>
-                    </div>
+                    <v-slide-x-transition mode="out-in">
+                        <div class="symbols-wrapper" :key="page">
+                            <SymbolCard :symbol="symbol" v-for="(symbol,index) in paginatedSymbols" :key="index"/>
+                        </div>
+                    </v-slide-x-transition>
                     <v-pagination v-model="page" :length="maxLength" class="mt-5"/>
                 </div>
             </v-fade-transition>
@@ -23,6 +25,7 @@ import {Currency, Status} from "@/models/Entities/Currency";
 import SymbolCard from "@/components/symbols/SymbolCard.vue";
 import Vue from "vue";
 import Component from "vue-class-component";
+import { Watch } from "vue-property-decorator";
 
 @Component({
     components: {
@@ -39,11 +42,17 @@ export default class SymbolsScreen extends Vue {
         await this.$store.dispatch('loadSymbols')
         this.loading = false;
     }
-
+    @Watch('page')
+    setFilterOnUri(val: any){
+        this.$router.push({ path: 'currency', query: { page: val }})
+    }
     async loadSelectList() {
         await this.$store.dispatch('getSymbolsList');
     }
-
+    initQueryString(){
+        const page = +this.$route.query.page
+        if (page > 0 && page <= this.maxLength) this.page = page
+    }
 
     get maxLength(){
         const symbols = Object.keys(this.symbols).length;
@@ -68,6 +77,7 @@ export default class SymbolsScreen extends Vue {
     }
 
     mounted() {
+        this.initQueryString();
         this.loadSymbols();
         this.loadSelectList();
     }
@@ -75,7 +85,7 @@ export default class SymbolsScreen extends Vue {
 </script>
 
 
-<style>
+<style lang="scss">
 .symbols-wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
