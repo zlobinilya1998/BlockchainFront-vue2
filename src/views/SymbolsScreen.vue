@@ -7,8 +7,11 @@
 
         <div style="margin-top: 25px">
             <v-fade-transition mode="out-in" leave-absolute>
-                <div v-if="symbols && !loading" class="symbols-wrapper">
-                    <SymbolCard :symbol="symbol" v-for="(symbol,index) in symbols" :key="index"/>
+                <div v-if="paginatedSymbols && !loading">
+                    <div class="symbols-wrapper">
+                        <SymbolCard :symbol="symbol" v-for="(symbol,index) in paginatedSymbols" :key="index"/>
+                    </div>
+                    <v-pagination v-model="page" :length="maxLength" class="mt-5"/>
                 </div>
             </v-fade-transition>
         </div>
@@ -28,8 +31,9 @@ import Component from "vue-class-component";
 })
 export default class SymbolsScreen extends Vue {
     statuses = Status
-    switchModel = false;
 
+    page = 1;
+    itemsPerPage = 12;
     async loadSymbols() {
         this.loading = true;
         await this.$store.dispatch('loadSymbols')
@@ -40,10 +44,21 @@ export default class SymbolsScreen extends Vue {
         await this.$store.dispatch('getSymbolsList');
     }
 
+
+    get maxLength(){
+        const symbols = Object.keys(this.symbols).length;
+        return Math.floor(symbols / this.itemsPerPage)
+    }
     get symbols(): Currency[] {
         return this.$store.state.blockchainModule.symbols
     }
 
+    get paginatedSymbols(){
+        const symbols = Object.entries(this.symbols);
+        const start = this.page * this.itemsPerPage;
+        const end = start + this.itemsPerPage;
+        return Object.fromEntries(symbols.slice(start, end));
+    }
     get loading() {
         return this.$store.state.blockchainModule.loading
     }
