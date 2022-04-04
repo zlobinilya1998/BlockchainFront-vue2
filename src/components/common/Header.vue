@@ -10,6 +10,7 @@
 
         <v-spacer></v-spacer>
 
+        <div v-if="$store.state.userModule.user" class="mr-2">Привет, {{$store.state.userModule.user.login}}</div>
         <v-btn v-if="isLoggedIn" color="secondary" @click="logout">
             <span class="mr-2">Выход</span>
             <v-icon>mdi-login-variant</v-icon>

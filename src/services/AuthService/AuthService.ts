@@ -5,7 +5,8 @@ export default class AuthService {
     static baseUrl = $api.defaults.baseURL + '/auth';
     static async login(user: User){
         const { data } = await $api.post(this.baseUrl + '/login', user);
-        this.setToken(data.result);
+        this.setToken(data.result.token);
+        return data.result.userInfo;
     }
     static setToken(token: string){
         localStorage.setItem('token',token);
